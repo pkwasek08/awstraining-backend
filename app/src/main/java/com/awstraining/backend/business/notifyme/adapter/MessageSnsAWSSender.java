@@ -23,7 +23,7 @@ public class MessageSnsAWSSender implements MessageSender {
     //  2. Make sure that you created new value in parameter store with arn of sns topic.
     //  3. Inject parameter with @Value annotation through constructor.
     @Autowired
-    public MessageSnsAWSSender(@Value("$notification.topicarn") String snsTopic, AmazonSNS snsClient) {
+    public MessageSnsAWSSender(@Value("${notification.topicarn}") String snsTopic, AmazonSNS snsClient) {
         this.snsTopic = snsTopic;
         this.snsClient = snsClient;
     }
