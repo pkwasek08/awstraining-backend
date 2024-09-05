@@ -1,5 +1,6 @@
 package com.awstraining.backend.business.notifyme;
 
+import com.awstraining.backend.business.notifyme.adapter.SentimentDetectorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,13 @@ public class NotifyMeService {
     private Translator translator;
     // TODO lab3
     //  1. Inject sentiment detector
+    private SentimentDetectorImpl sentimentDetector;
+
     @Autowired
-    public NotifyMeService(Translator translator, MessageSender messageSender) {
-        this.translator = translator;
+    public NotifyMeService(MessageSender messageSender, Translator translator, SentimentDetectorImpl sentimentDetector) {
         this.messageSender = messageSender;
+        this.translator = translator;
+        this.sentimentDetector = sentimentDetector;
     }
 
     public String notifyMe(NotifyMeDO notifyMe) {
@@ -34,8 +38,9 @@ public class NotifyMeService {
         //  2. Change sending of text to "translated text" and return it.
         // TODO: lab3
         //  1. Detect sentiment of translated message.
+        final String sentiment = sentimentDetector.detectSentiment(notifyMe.targetLc(), text);
         //  2. Change sending of text to "setiment: translated text" and return it.
-        return text;
+        return sentiment + ": " + text;
     }
 
 }
