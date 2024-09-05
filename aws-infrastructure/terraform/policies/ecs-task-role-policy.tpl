@@ -36,7 +36,7 @@ ${jsonencode(
     {
        "Effect": "Allow",
        "Action": "s3:PutObject",
-       "Resource": "*",
+       "Resource": "*"
     },
     {
        "Effect": "Allow",
